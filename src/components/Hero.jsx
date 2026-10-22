@@ -27,7 +27,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Transformando ideias em aplicações web modernas, robustas e de alto desempenho. Apaixonado por código limpo, inovação e tecnologia.
+              Transformando ideias em aplicações web modernas, robustas e de alto desempenho. buscando sempre a inovação e plena utilização da tecnologia.
             </p>
 
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">

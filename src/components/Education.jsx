@@ -4,16 +4,16 @@ import { GraduationCap, Calendar } from 'lucide-react';
 export default function Education() {
   const educations = [
     {
-      degree: 'Bacharelado em Engenharia de Software / Ciência da Computação',
-      institution: 'Instituição de Ensino Superior',
+      degree: 'Estudante de Desenvolvimento Full Stack Python Web',
+      institution: 'Instituição de Ensino Ebac',
       period: 'Em andamento / Concluído',
-      description: 'Formação superior focada em fundamentos de algoritmos, arquitetura de sistemas, engenharia de software e desenvolvimento web avançado.'
+      description: 'Formação focada em fundamentos de algoritmos, arquitetura de sistemas, engenharia de software e desenvolvimento web avançado.'
     },
     {
-      degree: 'Especialização em Desenvolvimento Full Stack',
-      institution: 'Cursos & Bootcamps Profissionais',
-      period: 'Contínuo',
-      description: 'Capacitação prática em tecnologias modernas como React, Node.js, bancos de dados relacionais e não-relacionais, e metodologias ágeis.'
+      degree: 'Cursos De Analise De Dados Python e Cyberscurity',
+      institution: 'Instituição de Ensino Ebac',
+      period: 'Em andamento/Contínuo',
+      description: 'Capacitação prática em tecnologias modernas como React, Node.js, bancos de dados relacionais e não-relacionais, e metodologias ágeis, e segurança da informação.'
     }
   ];
 

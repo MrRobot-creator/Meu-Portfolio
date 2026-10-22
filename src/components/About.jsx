@@ -27,7 +27,7 @@ export default function About() {
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Quem Sou</h2>
           <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-indigo-500 mx-auto rounded-full mb-6" />
           <p className="text-gray-400 text-lg leading-relaxed">
-            Sou um desenvolvedor apaixonado por tecnologia e resolução de problemas. Busco sempre criar soluções inovadoras que unam design elegante e alta performance técnica.
+            Sou um desenvolvedor estudante de tecnologia e resolução de problemas. Busco sempre criar soluções inovadoras, buscando alta performance técnica.
           </p>
         </div>
 
