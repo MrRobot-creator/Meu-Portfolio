@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import { Award, CheckCircle2, ExternalLink, X, ShieldCheck, BarChart3, Code, FileText } from 'lucide-react';
+import React from 'react';
+import { CheckCircle2, ShieldCheck, BarChart3, Code } from 'lucide-react';
 import certificadoEbac from '../assets/certificado ebac.pdf';
 import cyberSecurityEbac from '../assets/cyber security ebac.pdf';
 import analiseDadosPython from '../assets/analise de dados python.pdf';
 
 export default function Certifications() {
-  const [selectedPdf, setSelectedPdf] = useState(null);
-  const [selectedTitle, setSelectedTitle] = useState('');
-
   const certificates = [
     {
       title: 'Desenvolvimento Full Stack Web',
@@ -44,11 +41,6 @@ export default function Certifications() {
     }
   ];
 
-  const handleOpenPdf = (url, title) => {
-    setSelectedPdf(url);
-    setSelectedTitle(title);
-  };
-
   return (
     <section id="certificates" className="py-24 bg-dark-900 border-t border-dark-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,10 +59,7 @@ export default function Certifications() {
               className="rounded-2xl bg-dark-950 border border-dark-700 hover:border-gray-500 transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-2xl group"
             >
               {/* Visual Certificate Preview Mockup with Live PDF iframe */}
-              <div 
-                onClick={() => handleOpenPdf(cert.pdfUrl, cert.title)}
-                className="relative h-64 bg-dark-950 border-b border-dark-700 flex flex-col overflow-hidden cursor-pointer group"
-              >
+              <div className="relative h-64 bg-dark-950 border-b border-dark-700 flex flex-col overflow-hidden group">
                 {/* Browser/Document Top Bar */}
                 <div className="flex items-center justify-between bg-dark-900 px-3 py-2 border-b border-dark-700 z-10">
                   <div className="flex items-center space-x-1.5">
@@ -81,9 +70,6 @@ export default function Certifications() {
                   <div className="flex items-center space-x-2 bg-dark-950 px-3 py-1 rounded-md border border-dark-700 text-xs text-gray-400 max-w-[240px] truncate">
                     {cert.icon}
                     <span className="truncate font-mono text-[11px]">{cert.title}.pdf</span>
-                  </div>
-                  <div className="text-gray-400 hover:text-white transition-colors p-1" title="Ampliar Certificado">
-                    <ExternalLink className="w-4 h-4" />
                   </div>
                 </div>
 
@@ -96,14 +82,6 @@ export default function Certifications() {
                     tabIndex={-1}
                   />
                   <div className="absolute inset-0 bg-dark-950/20 group-hover:bg-transparent transition-colors" />
-                </div>
-
-                {/* Hover Click Hint Overlay */}
-                <div className="absolute inset-0 bg-dark-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
-                  <span className="px-5 py-2.5 bg-white text-dark-950 font-semibold rounded-xl shadow-lg text-sm flex items-center space-x-2">
-                    <span>Clique para Visualizar Certificado em Tela Cheia</span>
-                    <ExternalLink className="w-4 h-4" />
-                  </span>
                 </div>
               </div>
 
@@ -122,16 +100,6 @@ export default function Certifications() {
                 </div>
 
                 <div>
-                  <div className="mb-4">
-                    <button
-                      onClick={() => handleOpenPdf(cert.pdfUrl, cert.title)}
-                      className="w-full py-2.5 px-4 bg-dark-900 border border-dark-700 hover:border-gray-500 text-white rounded-xl text-sm font-semibold transition-all flex items-center justify-center space-x-2 group/btn"
-                    >
-                      <span>Visualizar Documento</span>
-                      <ExternalLink className="w-4 h-4 text-gray-400 group-hover/btn:text-white transition-colors" />
-                    </button>
-                  </div>
-
                   <div className="flex flex-wrap gap-2 mb-4">
                     {cert.tags.map((tag, tIdx) => (
                       <span
@@ -153,34 +121,6 @@ export default function Certifications() {
           ))}
         </div>
       </div>
-
-      {/* PDF Viewer Modal */}
-      {selectedPdf && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6">
-          <div className="relative w-full max-w-4xl h-[85vh] bg-dark-900 border border-dark-700 rounded-2xl overflow-hidden shadow-2xl flex flex-col">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-dark-700 bg-dark-950">
-              <h3 className="text-lg font-bold text-white flex items-center space-x-2">
-                <Award className="w-5 h-5 text-gray-300" />
-                <span>Certificado - {selectedTitle}</span>
-              </h3>
-              <button
-                onClick={() => setSelectedPdf(null)}
-                className="p-2 text-gray-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors"
-                title="Fechar"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            <div className="flex-1 bg-dark-950 p-2">
-              <iframe
-                src={selectedPdf}
-                title={selectedTitle}
-                className="w-full h-full rounded-xl border border-dark-800"
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
