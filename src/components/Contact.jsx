@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Send, CheckCircle2, ArrowUpRight } from 'lucide-react';
-import { socials, external } from './SocialIcons';
+import { socials, external, WhatsAppIcon } from './SocialIcons';
 import { Section, Button, inView, reveal, ease } from './ui';
 
 const fields = [
@@ -13,17 +13,38 @@ const fields = [
 const inputClass =
   'w-full px-4 py-3 rounded-sm bg-surface-raised border border-line text-ink placeholder:text-muted focus:outline-none focus:border-accent transition-colors';
 
+const hrefOf = (name) => socials.find((s) => s.name === name).href;
+
+const sentCopy = {
+  email: 'Seu app de email abriu com a mensagem pronta. É só clicar em enviar. Se nada abriu, escreva direto para matheusnsenado6@gmail.com.',
+  whatsapp: 'O WhatsApp abriu em outra aba com a mensagem pronta. É só enviar por lá.'
+};
+
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+  // Canal usado no envio ('email' | 'whatsapp'), null enquanto o formulário está visível
+  const [sentVia, setSentVia] = useState(null);
 
+  // Sem backend: abre o email ou o WhatsApp do visitante com a mensagem já preenchida
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    const via = e.nativeEvent.submitter?.value === 'whatsapp' ? 'whatsapp' : 'email';
+    const { name, email, message } = formData;
+
+    if (via === 'whatsapp') {
+      const text = `Olá, Matheus! Sou ${name} (${email}).\n\n${message}`;
+      window.open(`${hrefOf('WhatsApp')}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    } else {
+      const subject = `Contato pelo portfolio — ${name}`;
+      const body = `${message}\n\n${name}\n${email}`;
+      window.location.href = `${hrefOf('Email')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    setSentVia(via);
     setTimeout(() => {
-      setSubmitted(false);
+      setSentVia(null);
       setFormData({ name: '', email: '', message: '' });
-    }, 4000);
+    }, 8000);
   };
 
   return (
@@ -67,7 +88,7 @@ export default function Contact() {
           <h3 className="font-display text-title font-semibold tracking-title text-ink mb-6">Envie uma mensagem</h3>
 
           <AnimatePresence mode="wait" initial={false}>
-            {submitted ? (
+            {sentVia ? (
               <motion.div
                 key="done"
                 initial={{ opacity: 0, scale: 0.96 }}
@@ -85,10 +106,8 @@ export default function Contact() {
                 >
                   <CheckCircle2 className="w-8 h-8" />
                 </motion.div>
-                <h4 className="font-display text-xl font-semibold text-ink">Mensagem enviada!</h4>
-                <p className="text-muted text-sm max-w-md mx-auto">
-                  Obrigado pelo contato! Sua mensagem foi simulada com sucesso. Você também pode me chamar diretamente no WhatsApp ou email.
-                </p>
+                <h4 className="font-display text-xl font-semibold text-ink">Quase lá!</h4>
+                <p className="text-muted text-sm max-w-md mx-auto">{sentCopy[sentVia]}</p>
               </motion.div>
             ) : (
               <motion.form
@@ -127,10 +146,17 @@ export default function Contact() {
                   </div>
                 ))}
 
-                <Button as="button" type="submit" className="w-full">
-                  Enviar mensagem
-                  <Send className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5" />
-                </Button>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <Button as="button" type="submit" value="email" className="w-full">
+                    Enviar pelo email
+                    <Send className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+                  </Button>
+                  <Button as="button" type="submit" value="whatsapp" variant="secondary" className="w-full">
+                    <WhatsAppIcon className="w-4 h-4" />
+                    Enviar pelo WhatsApp
+                  </Button>
+                </div>
+                <p className="text-muted text-sm">Abre seu app de email ou o WhatsApp com a mensagem já preenchida.</p>
               </motion.form>
             )}
           </AnimatePresence>
