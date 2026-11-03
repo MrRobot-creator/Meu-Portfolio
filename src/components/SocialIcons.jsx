@@ -1,4 +1,14 @@
 import React from 'react';
+import { Mail } from 'lucide-react';
+
+export const external = { target: '_blank', rel: 'noopener noreferrer' };
+
+export const socials = [
+  { name: 'GitHub', handle: 'MrRobot-creator', href: 'https://github.com/MrRobot-creator', Icon: GithubIcon, external: true },
+  { name: 'Email', handle: 'matheusnsenado6@gmail.com', href: 'mailto:matheusnsenado6@gmail.com', Icon: Mail },
+  { name: 'WhatsApp', handle: '(91) 98456-0424', href: 'https://wa.me/5591984560424', Icon: WhatsAppIcon, external: true },
+  { name: 'Instagram', handle: '@_mv_nobrs', href: 'https://www.instagram.com/_mv_nobrs/', Icon: InstagramIcon, external: true },
+];
 
 export function GithubIcon({ className = "w-5 h-5" }) {
   return (
